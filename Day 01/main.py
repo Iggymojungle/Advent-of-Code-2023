@@ -2,6 +2,7 @@ import os
 import sys
 import time
 
+
 DATA = "data.txt"
 
 words_to_numbers = {"one":"1",
@@ -45,20 +46,32 @@ def convert(line, direction):
     return line
 
 
-def main():
-    start = time.perf_counter()
-    data = [[j for j in i if j.isnumeric()] for i in get_data().split("\n")]
+def part1(data):
+    data = [[j for j in i if j.isnumeric()] for i in data.split("\n")]
     data = [[i[0],i[-1]] for i in data]
-    print("Part 1:",str(sum([int("".join(i)) for i in data])))
+    return str(sum([int("".join(i)) for i in data]))
 
-    data = get_data().split("\n")
+
+def part2(data):
+    data = data.split("\n")
     data_forward = [[j for j in convert(i, True) if j.isnumeric()] for i in data]
     data_backward = [[j for j in convert(i, False) if j.isnumeric()] for i in data]
-    
     data_end = [[data_forward[i][0],data_backward[i][-1]] for i in range(len(data))]
-    print("Part 2:",str(sum([int("".join(i)) for i in data_end])))
+    return str(sum([int("".join(i)) for i in data_end]))
+
+
+def main():
+    start = time.perf_counter()
+
+    data = get_data()
+    print("Part 1:", part1(data))
+
+    data = get_data()
+    print("Part 2:", part2(data))
+
     end = time.perf_counter()
     print(f"Time to run: {end-start:.3f}")    
+
 
 if __name__ == "__main__":
     main()
