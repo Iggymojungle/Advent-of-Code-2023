@@ -11,7 +11,7 @@ def get_data():
         import get_input
         input_data = get_input.get_input(2023, 2)
         with open("data.txt", "w") as f:
-            f.write(input_data)
+            f.write(input_data.strip("\n"))
     with open("data.txt", "r") as f:
         data = f.read()
     return data

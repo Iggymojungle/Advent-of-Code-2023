@@ -16,7 +16,7 @@ def get_data():
         import get_input
         input_data = get_input.get_input({YEAR}, {DAY_PLACEHOLDER})
         with open("data.txt", "w") as f:
-            f.write(input_data)
+            f.write(input_data.strip("\\n"))
     with open("data.txt", "r") as f:
         data = f.read()
     return data
@@ -29,7 +29,7 @@ def main():
 if __name__ == "__main__":
     main()
 '''
-REMAKE_OVERRIDE = False
+REMAKE_OVERRIDE = True
 
 
 folders = [i for i in pathlib.Path(os.getcwd()).iterdir() if i.is_dir() and ("Day" in str(i))]
