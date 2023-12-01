@@ -31,7 +31,6 @@ def get_data():
             
 
 def convert(line, direction):
-    #print(line)
     in_line = []
     for word in words_to_numbers:
         if word in line:
@@ -40,11 +39,8 @@ def convert(line, direction):
         in_line = sorted(in_line, key=lambda word:line.index(word))
     if not direction:
         in_line = sorted(in_line, key=lambda word:line[::-1].index(word[::-1]))
-        
-        #print(in_line)
     for word in in_line:
         line = line.replace(word, words_to_numbers[word])
-    #input(line)
     return line
 
 
