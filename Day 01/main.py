@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 DATA = "data.txt"
 
@@ -45,6 +46,7 @@ def convert(line, direction):
 
 
 def main():
+    start = time.perf_counter()
     data = [[j for j in i if j.isnumeric()] for i in get_data().split("\n")]
     data = [[i[0],i[-1]] for i in data]
     print("Part 1:",str(sum([int("".join(i)) for i in data])))
@@ -55,7 +57,8 @@ def main():
     
     data_end = [[data_forward[i][0],data_backward[i][-1]] for i in range(len(data))]
     print("Part 2:",str(sum([int("".join(i)) for i in data_end])))
-    
+    end = time.perf_counter()
+    print(f"Time to run: {end-start:.3f}")    
 
 if __name__ == "__main__":
     main()
