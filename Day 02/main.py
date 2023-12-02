@@ -1,10 +1,12 @@
 import os
 import sys
 import time
-
+from collections import defaultdict
 
 DATA = "data.txt"
-
+MAX_RED = 12
+MAX_GREEN = 13
+MAX_BLUE = 14
 
 def get_data():
     os.chdir(os.path.dirname(__file__))
@@ -22,12 +24,38 @@ def get_data():
     return data
             
 
+def prepare_data(data):
+    return [[defaultdict(int, {k.split(" ")[1]: int(k.split(" ")[0]) for k in j.split(", ")}) for j in i[i.index(":")+2:].split("; ")] for i in data.split("\n")]
+
+
 def part1(data):
-    return None
+    total = 0
+    data = prepare_data(data)
+    for linenum, line in enumerate(data):
+        good = True
+        for part in line:
+            if part["red"] > MAX_RED or part["green"] > MAX_GREEN or part["blue"] > MAX_BLUE:
+                good = False
+        if good:
+            total += linenum + 1
+    return total
+
+
 
 
 def part2(data):
-    return None
+    total = 0
+    data = prepare_data(data)
+    for line in data:
+        minimums = {"red" : 0, "green" : 0, "blue" : 0}
+        for part in line:
+            for colour in minimums:
+                if minimums[colour] < part[colour]:
+                    minimums[colour] = part[colour]
+        total += minimums["red"] * minimums["blue"] * minimums["green"]
+    return total
+        
+                    
 
 
 def main():
