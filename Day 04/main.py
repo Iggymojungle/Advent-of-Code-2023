@@ -35,8 +35,7 @@ def recursive_p2(data, total):
 
 def part2(data):
     data = [(len(i)-len(set(i)))//1 for i in [j[j.index(":")+1:].replace(" |", "").replace("  "," ").split(" ") for j in data.split("\n")]]
-    data.insert(0, len(data))
-    return recursive_p2(data, 0)
+    return recursive_p2([len(data)] + data, 0)
 
 
 def main():
