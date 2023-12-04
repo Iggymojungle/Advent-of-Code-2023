@@ -23,11 +23,20 @@ def get_data():
             
 
 def part1(data):
-    return None
+    return int(sum([2 ** (len(i)-len(set(i)) - 1)//1 for i in [j[j.index(":")+1:].replace(" |", "").replace("  "," ").split(" ") for j in data.split("\n")]]))
+
+
+def recursive_p2(data, total):
+    total += data[0]
+    for i in range(data[0]):
+        total = recursive_p2(data[i+1:], total)
+    return total
 
 
 def part2(data):
-    return None
+    data = [(len(i)-len(set(i)))//1 for i in [j[j.index(":")+1:].replace(" |", "").replace("  "," ").split(" ") for j in data.split("\n")]]
+    data.insert(0, len(data))
+    return recursive_p2(data, 0)
 
 
 def main():
