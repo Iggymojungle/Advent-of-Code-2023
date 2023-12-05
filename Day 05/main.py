@@ -74,8 +74,6 @@ def map_seed_p2(to_map, seed):
     return [seed]
     
 
-
-
 def part2(data):
     seeds, maps = prepare_data(data)
     new_seeds = []
