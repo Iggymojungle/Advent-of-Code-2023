@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import math
 
 
 DATA = "data.txt"
@@ -30,35 +31,31 @@ def prepare_data_p2(data):
     return [int("".join([j for j in i.split(" ") if j.isnumeric()])) for i in data.split("\n")]
 
 
+def quadratic_calculate(time, distance):
+    higher = (time + (time ** 2 - 4 * distance)**(1/2))/2
+    lower = (time - (time ** 2 - 4 * distance)**(1/2))/2
+    if higher//1 == higher:
+        higher -= 1
+    if lower//1 == lower:
+        lower += 1
+    return math.floor(higher) - math.ceil(lower) + 1
+
+
 def part1(data):
     data = prepare_data_p1(data)
     times = data[0]
     distances = data[1]
     total = 1
     for timenum, time in enumerate(times):
-        timetotal = 0
-        for i in range(time):
-            if i*(time-i) > distances[timenum]:
-                timetotal += 1
-        total *= timetotal
-    return total
+        total *= quadratic_calculate(time, distances[timenum])
+    return int(total)
 
 
 def part2(data):
     data = prepare_data_p2(data)
     time = data[0]
     distance = data[1]
-    min = None
-    max = None
-    for i in range(time):
-        if i*(time-i) > distance:
-            min=i
-            break
-    for i in range(time,0,-1):
-        if i*(time-i) > distance:
-            max=i
-            break
-    return max-min+1
+    return int(quadratic_calculate(time, distance))
 
 
 def main():
