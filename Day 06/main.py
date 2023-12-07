@@ -22,12 +22,43 @@ def get_data():
     return data
             
 
+def prepare_data_p1(data):
+    return [[int(j) for j in i.split(" ") if j.isnumeric()] for i in data.split("\n")]
+
+
+def prepare_data_p2(data):
+    return [int("".join([j for j in i.split(" ") if j.isnumeric()])) for i in data.split("\n")]
+
+
 def part1(data):
-    return None
+    data = prepare_data_p1(data)
+    times = data[0]
+    distances = data[1]
+    total = 1
+    for timenum, time in enumerate(times):
+        timetotal = 0
+        for i in range(time):
+            if i*(time-i) > distances[timenum]:
+                timetotal += 1
+        total *= timetotal
+    return total
 
 
 def part2(data):
-    return None
+    data = prepare_data_p2(data)
+    time = data[0]
+    distance = data[1]
+    min = None
+    max = None
+    for i in range(time):
+        if i*(time-i) > distance:
+            min=i
+            break
+    for i in range(time,0,-1):
+        if i*(time-i) > distance:
+            max=i
+            break
+    return max-min+1
 
 
 def main():
