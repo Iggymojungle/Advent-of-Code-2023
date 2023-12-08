@@ -32,8 +32,8 @@ def prepare_data_p2(data):
 
 
 def quadratic_calculate(time, distance):
-    higher = (time + (time ** 2 - 4 * distance)**(1/2))/2
-    lower = (time - (time ** 2 - 4 * distance)**(1/2))/2
+    higher = (time + math.sqrt(time ** 2 - 4 * distance))/2
+    lower = (time - math.sqrt(time ** 2 - 4 * distance))/2
     if higher//1 == higher:
         higher -= 1
     if lower//1 == lower:
