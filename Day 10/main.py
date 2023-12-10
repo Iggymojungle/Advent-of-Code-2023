@@ -54,8 +54,6 @@ def part1(data):
         if start:
             break
     current_pos = []
-    #print(start)
-    # May be error if S at 0, thus -1
     if start[1] - 1 >= 0:
         if data[start[0]][start[1]-1] in ["-", "L", "F"]:
             s_directions.append("left")
@@ -72,7 +70,6 @@ def part1(data):
         if data[start[0]-1][start[1]] in ["|", "F", "7"]:
             s_directions.append("up")
             current_pos.append([start[0]-1,start[1]])
-    #print(f"{current_pos=}")
     if len(current_pos) != 2:
         raise Exception("Not the right amount of starting positions")
 
