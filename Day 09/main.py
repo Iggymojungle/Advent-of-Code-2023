@@ -20,14 +20,34 @@ def get_data():
     with open(DATA, "r") as f:
         data = f.read()
     return data
-            
+
+
+def recursive_sequence_p1(line):
+    if all([i == 0 for i in line]):
+        return 0
+    return line[-1] + recursive_sequence_p1([line[i+1]-line[i] for i in range(len(line)-1)])
+    
+
+def recursive_sequence_p2(line):
+    if all([i == 0 for i in line]):
+        return 0
+    return line[0] - recursive_sequence_p2([line[i+1]-line[i] for i in range(len(line)-1)])
+
 
 def part1(data):
-    return None
+    data = [[int(num) for num in line.split(" ")] for line in data.split("\n")]
+    total = 0
+    for line in data:
+        total += recursive_sequence_p1(line)
+    return total
 
 
 def part2(data):
-    return None
+    data = [[int(num) for num in line.split(" ")] for line in data.split("\n")]
+    total = 0
+    for line in data:
+        total += recursive_sequence_p2(line)
+    return total
 
 
 def main():
