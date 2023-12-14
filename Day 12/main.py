@@ -22,8 +22,46 @@ def get_data():
     return data
             
 
+def line_count(line):
+    current = 0
+    count = []
+    for character in line:
+        if character == "#":
+            current += 1
+        elif current != 0:
+            count.append(current)
+            current = 0
+    if current != 0:
+        count.append(current)
+    return count
+
+
+def brute_force(line):
+    total = 0
+    picross_bit = list(line[0])
+    for num in range(2**picross_bit.count("?")):
+        binary_num = str(bin(num))[2:].zfill(picross_bit.count("?"))
+        q_num = 0
+        new_ver = list(picross_bit)
+        for chr_num, character in enumerate(picross_bit):
+            if character == "?":
+                if binary_num[q_num] == "1":
+                    new_ver[chr_num] = "#"
+                else:
+                    new_ver[chr_num] = "."
+                q_num += 1
+        if line_count(new_ver) == line[1]:
+            total += 1
+    return total
+                    
+
 def part1(data):
-    return None
+    data = [[line.split(" ")[0],[int(i) for i in line.split(" ")[1].split(",")]] for line in data.split("\n")]
+    total = 0
+    for line in data:
+        total += brute_force(line)
+    return total
+
 
 
 def part2(data):
